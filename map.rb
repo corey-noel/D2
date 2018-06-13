@@ -1,8 +1,15 @@
+require_relative "city.rb"
+
 class Map
 
   attr_reader :start
 
   def initialize
+    @cities = []
+    @start = nil
+  end
+
+  def load_default_map
     sutter_creek = City.new("Sutter Creek", 0, 2)
     coloma = City.new("Coloma", 0, 3)
     angels_camp = City.new("Angels Camp", 0, 4)
@@ -24,5 +31,23 @@ class Map
     virginia_city, midas, el_dorado_canyon]
 
     @start = sutter_creek
+    nil
+  end
+
+  def cities
+    @cities.map{ |c| c }
+  end
+
+  def add_city city
+    @cities << city
+  end
+
+  def get_city city_name
+    @cities.each do |c|
+        if c.city_name == city_name
+            return c
+        end
+    end
+    return nil
   end
 end
