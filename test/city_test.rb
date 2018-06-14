@@ -1,5 +1,4 @@
-require_relative "city.rb"
-require "minitest/autorun"
+require_relative "test_helper.rb"
 
 class CityTest < MiniTest::Test
 

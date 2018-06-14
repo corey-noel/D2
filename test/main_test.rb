@@ -1,1 +1,2 @@
-require_relative "city_test.rb"
+require_relative "test_helper.rb"
+require_recursive "**"

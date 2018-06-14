@@ -1,5 +1,4 @@
-require_relative "map.rb"
-require "minitest/autorun"
+require_relative "test_helper.rb"
 
 class MapTest < MiniTest::Test
 

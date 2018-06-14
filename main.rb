@@ -1,4 +1,4 @@
-require_relative 'map.rb'
+require_relative 'lib/map.rb'
 
 if ARGV.length != 2
  puts "Usage: ruby gold_rush.rb [seed] [num prospectors]"
