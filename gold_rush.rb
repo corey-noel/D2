@@ -1,4 +1,5 @@
 require_relative 'lib/map.rb'
+require_relative 'lib/prospector.rb'
 
 begin
   raise ArgumentError.new("Incorrect number of arguments") unless ARGV.length == 2
@@ -11,9 +12,10 @@ rescue StandardError => e
   exit 1
 end
 
+map = Map.new
+map.load_default_map
+
 (1..count).each do |i|
-  mp = Map.new
-  mp.load_default_map
-  puts "Prospector ##{i}'s adventure begins in #{mp.start.city_name}..."
-  # game
+  Prospector.new(map).run
+  puts "#" * 30
 end
