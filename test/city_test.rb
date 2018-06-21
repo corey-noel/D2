@@ -93,23 +93,23 @@ class CityTest < MiniTest::Test
 
   # tests the get neighbor function on a city with
   # no neighbors - should return nil
-  def test_get_neighbor_no_connections
+  def test_rand_neighbor_no_connections
     c1 = City.new("Test City", 10, 20)
-    assert_nil c1.get_neighbor
+    assert_nil c1.rand_neighbor
   end
 
   # tests the get neighbor function on a city with
   # a single neighbor
-  def test_get_neighbor_one_connection
+  def test_rand_neighbor_one_connection
     c1 = City.new("City 1", 5, 5)
     c2 = City.new("City 2", 10, 10)
     c1.connect c2
-    assert_equal c2, c1.get_neighbor
+    assert_equal c2, c1.rand_neighbor
   end
 
   # tests the get neighbor function on a city with
   # many neighbors
-  def test_get_neighbor_many_connections
+  def test_rand_neighbor_many_connections
     c1 = City.new("City 1", 5, 5)
     c2 = City.new("City 2", 10, 10)
     c3 = City.new("City 3", 15, 15)
@@ -121,36 +121,36 @@ class CityTest < MiniTest::Test
     c1.connect c3
     c1.connect c4
 
-    assert_includes neighbor_list, c1.get_neighbor
+    assert_includes neighbor_list, c1.rand_neighbor
   end
 
-  # tests that the get_silver function returns a value
+  # tests that the rand_silver function returns a value
   # between 0 and max_silver
-  def test_get_silver
+  def test_rand_silver
     c1 = City.new("City 1", 10, 1000)
-    res = c1.get_silver
+    res = c1.rand_silver
     assert res >= 0 && res <= 10
   end
 
-  # tests that the get_gold function returns a value
+  # tests that the rand_gold function returns a value
   # between 0 and max_gold
-  def test_get_gold
+  def test_rand_gold
     c1 = City.new("City 1", 1000, 10)
-    res = c1.get_gold
+    res = c1.rand_gold
     assert res >= 0 && res <= 10
   end
 
-  # tests that the get_silver function returns 0
+  # tests that the rand_silver function returns 0
   # when max_silver is 0
-  def test_get_silver_zero
+  def test_rand_silver_zero
     c1 = City.new("City 1", 0, 100)
-    assert_equal 0, c1.get_silver
+    assert_equal 0, c1.rand_silver
   end
 
-  # tests that the get_gold function returns 0
+  # tests that the rand_gold function returns 0
   # when max_gold is 0
-  def test_get_gold_zero
+  def test_rand_gold_zero
     c1 = City.new("City 1", 100, 0)
-    assert_equal 0, c1.get_gold
+    assert_equal 0, c1.rand_gold
   end
 end

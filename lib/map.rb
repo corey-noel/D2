@@ -1,7 +1,8 @@
-require_relative "city.rb"
+require_relative 'city.rb'
 
+# class Map
+# used to represent our map of the world
 class Map
-
   attr_reader :start
 
   def initialize
@@ -10,13 +11,13 @@ class Map
   end
 
   def load_default_map
-    sutter_creek = City.new("Sutter Creek", 0, 2)
-    coloma = City.new("Coloma", 0, 3)
-    angels_camp = City.new("Angels Camp", 0, 4)
-    nevada_city = City.new("Nevada City", 0, 5)
-    virginia_city = City.new("Virginia City", 3, 3)
-    midas = City.new("Midas", 5, 0)
-    el_dorado_canyon = City.new("El Dorado Canyon", 10, 0)
+    sutter_creek = City.new('Sutter Creek', 0, 2)
+    coloma = City.new('Coloma', 0, 3)
+    angels_camp = City.new('Angels Camp', 0, 4)
+    nevada_city = City.new('Nevada City', 0, 5)
+    virginia_city = City.new('Virginia City', 3, 3)
+    midas = City.new('Midas', 5, 0)
+    el_dorado_canyon = City.new('El Dorado Canyon', 10, 0)
 
     sutter_creek.connect(coloma)
     sutter_creek.connect(angels_camp)
@@ -28,26 +29,22 @@ class Map
     midas.connect(el_dorado_canyon)
 
     @cities = [sutter_creek, coloma, angels_camp, nevada_city,
-    virginia_city, midas, el_dorado_canyon]
+               virginia_city, midas, el_dorado_canyon]
 
     @start = sutter_creek
-    nil
   end
 
   def cities
-    @cities.map{ |c| c }
+    @cities.map { |c| c }
   end
 
-  def add_city city
+  def add_city(city)
     @cities << city
   end
 
-  def get_city city_name
+  def get_city(city_name)
     @cities.each do |c|
-        if c.city_name == city_name
-            return c
-        end
+      return c if c.city_name == city_name
     end
-    return nil
   end
 end
