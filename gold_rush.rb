@@ -13,5 +13,5 @@ rescue StandardError => e
 end
 
 map = Map.new
-map.load_default_map
+map.load_map File.read 'default_map.json'
 (1..count).each { |i| Prospector.new(map, i).run }

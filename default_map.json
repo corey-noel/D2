@@ -1,0 +1,70 @@
+{
+  "cities": [
+    {
+      "name": "Sutter Creek",
+      "is_start": true,
+      "max_silver": 0,
+      "max_gold": 2,
+      "connections": [
+        "Angels Camp",
+        "Coloma"
+      ]
+    },
+    {
+      "name": "Coloma",
+      "max_silver": 0,
+      "max_gold": 3,
+      "connections": [
+        "Virginia City",
+        "Sutter Creek"
+      ]
+    },
+    {
+      "name": "Angels Camp",
+      "max_silver": 0,
+      "max_gold": 4,
+      "connections": [
+        "Nevada City",
+        "Sutter Creek",
+        "Virginia City"
+      ]
+    },
+    {
+      "name": "Nevada City",
+      "max_silver": 0,
+      "max_gold": 5,
+      "connections": [
+        "Angels Camp"
+      ]
+    },
+    {
+      "name": "Virginia City",
+      "max_silver": 3,
+      "max_gold": 3,
+      "connections": [
+        "Angels Camp",
+        "Coloma",
+        "Midas",
+        "El Dorado Canyon"
+      ]
+    },
+    {
+      "name": "Midas",
+      "max_silver": 5,
+      "max_gold": 0,
+      "connections": [
+        "Virginia City",
+        "El Dorado Canyon"
+      ]
+    },
+    {
+      "name": "El Dorado Canyon",
+      "max_silver": 10,
+      "max_gold": 0,
+      "connections": [
+        "Midas",
+        "Virginia City"
+      ]
+    }
+  ]
+}

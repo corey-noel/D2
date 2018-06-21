@@ -1,9 +1,9 @@
 # class Prospector
 # represents an individual prospector
 class Prospector
-  @gold_price = 20.67
-  @silver_price = 1.31
-  @num_locations = 5
+  @@num_locations = 5
+  @@gold_price = 20.67
+  @@silver_price = 1.31
 
   def initialize(map, p_name)
     @map = map
@@ -11,28 +11,27 @@ class Prospector
     @day = 0
     @gold = 0
     @silver = 0
-    @curr_city = @map.start
   end
 
   def run
     @day = 0
-    @curr_city = @map.start
+    curr_city = @map.start
     puts "Prospector ##{@p_name} starting in #{curr_city.city_name}."
 
-    (1..@@num_locations - 1).each do |loc_count|
+    (1..@@num_locations).each do |loc_count|
       visit_city curr_city, loc_count
-      next_city
+      curr_city = next_city curr_city
     end
     visit_city curr_city, @@num_locations
     display_result
   end
 
-  def next_city
-    last_city = @curr_city
-    @curr_city = @curr_city.rand_neighbor
-    print "Heading from #{last_city.city_name} to #{curr_city.city_name},"
+  def next_city(curr_city)
+    next_city = curr_city.rand_neighbor
+    print "Heading from #{curr_city.city_name} to #{next_city.city_name},"
     print "holding #{pluralize @gold, 'gold'} and "
     puts "#{pluralize @silver, 'silver'}."
+    next_city
   end
 
   def display_result

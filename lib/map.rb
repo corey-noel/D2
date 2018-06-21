@@ -1,4 +1,5 @@
 require_relative 'city.rb'
+require 'json'
 
 # class Map
 # used to represent our map of the world
@@ -10,28 +11,21 @@ class Map
     @start = nil
   end
 
-  def load_default_map
-    sutter_creek = City.new('Sutter Creek', 0, 2)
-    coloma = City.new('Coloma', 0, 3)
-    angels_camp = City.new('Angels Camp', 0, 4)
-    nevada_city = City.new('Nevada City', 0, 5)
-    virginia_city = City.new('Virginia City', 3, 3)
-    midas = City.new('Midas', 5, 0)
-    el_dorado_canyon = City.new('El Dorado Canyon', 10, 0)
+  def load_map(file)
+    json_obj = JSON.parse(file)
+    json_obj['cities'].each { |city| load_city city }
+    json_obj['cities'].each { |city| connect_city city }
+  end
 
-    sutter_creek.connect(coloma)
-    sutter_creek.connect(angels_camp)
-    coloma.connect(virginia_city)
-    angels_camp.connect(nevada_city)
-    angels_camp.connect(virginia_city)
-    virginia_city.connect(midas)
-    virginia_city.connect(el_dorado_canyon)
-    midas.connect(el_dorado_canyon)
+  def load_city(city)
+    city_obj = City.new(city['name'], city['max_silver'], city['max_gold'])
+    add_city city_obj
+    @start = city_obj if city['is_start']
+  end
 
-    @cities = [sutter_creek, coloma, angels_camp, nevada_city,
-               virginia_city, midas, el_dorado_canyon]
-
-    @start = sutter_creek
+  def connect_city(city)
+    city_obj = get_city(city['name'])
+    city['connections'].each { |conn| city_obj.connect get_city(conn) }
   end
 
   def cities
