@@ -1,6 +1,6 @@
 require_relative 'lib/map.rb'
 require_relative 'lib/prospector.rb'
-
+require 'json'
 begin
   raise ArgumentError, 'Incorrect number of arguments' unless ARGV.length == 2
   srand(Integer(ARGV[0]))
@@ -11,7 +11,5 @@ rescue StandardError => e
   puts 'Usage: ruby gold_rush.rb [seed] [num prospectors]'
   exit 1
 end
-
-map = Map.new
-map.load_map File.read 'default_map.json'
-(1..count).each { |i| Prospector.new(map, i).run }
+map = Map.load_map(JSON.parse(File.read('default_map.json')))
+(1..count).each { |i| Prospector.new(map, "##{i}").run }
