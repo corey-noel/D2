@@ -1,7 +1,6 @@
-require 'simplecov'
-SimpleCov.start
 require "minitest/autorun"
-require_relative "../lib/map.rb"
+require_relative "../lib/city.rb"
+require 'json'
 
 class CityTest < MiniTest::Test
   def setup
@@ -231,4 +230,33 @@ class CityTest < MiniTest::Test
     c1 = City.new("City 1", 100, 0)
     assert_equal 0, c1.rand_gold
   end
+
+  # UNIT TESTS FOR METHOD load_city
+  # no equivalence classes
+  # SUCCESS: city is formatted as a hash with values
+  # name, max_silver, and max_gold
+  # FAILURE: any other formatting
+  def load_city_setup
+    city_json = JSON.parse '{"name": "test", "max_silver": 5, "max_gold": 10}'
+    @json_city = City.load_city(city_json)
+  end
+
+  # tests the city_name value of a JSON city
+  def test_json_city_name
+    load_city_setup
+    assert_equal "test", @json_city.city_name
+  end
+
+  # tests the max_silver value of a JSON city
+  def test_json_max_silver
+    load_city_setup
+    assert_equal 5, @json_city.max_silver
+  end
+
+  # tests the max_gold value of a JSON city
+  def test_json_max_gold
+    load_city_setup
+    assert_equal 10, @json_city.max_gold
+  end
+
 end

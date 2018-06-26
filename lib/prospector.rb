@@ -1,6 +1,11 @@
 # class Prospector
 # represents an individual prospector
 class Prospector
+  attr_reader :day
+  attr_reader :p_name
+  attr_reader :gold
+  attr_reader :silver
+
   ##########
   # @map
   # the map our prospector is on
@@ -73,7 +78,7 @@ class Prospector
 
   # displays the result of our run
   def display_result
-    print "After #{@day} days, Prospector ##{@p_name} returned "
+    print "After #{@day} days, Prospector #{@p_name} returned "
     puts "to San Fransisco with:\n\t#{self.class.pluralize @gold, 'gold'}."
     puts "\t#{self.class.pluralize @silver, 'silver'}."
     puts format("\tHeading home with $%.2f.\n\n", total_earnings)
@@ -81,17 +86,18 @@ class Prospector
 
   # runs an individual day
   # collects gold and silver
-  # calls itself recursively to stay in the same location
   def run_day(loc_count)
-    @day += 1
-    d_silver = @curr_city.rand_silver
-    d_gold = @curr_city.rand_gold
-    @silver += d_silver
-    @gold += d_gold
+    stay = true
+    while stay
+      @day += 1
+      d_silver = @curr_city.rand_silver
+      d_gold = @curr_city.rand_gold
+      @silver += d_silver
+      @gold += d_gold
 
-    puts "\t#{self.class.day_summary d_silver, d_gold, @curr_city.city_name}"
-    return unless self.class.stay_in_city?(loc_count, d_silver, d_gold)
-    run_day loc_count
+      puts "\t#{self.class.day_summary d_silver, d_gold, @curr_city.city_name}"
+      stay = self.class.stay_in_city?(loc_count, d_silver, d_gold)
+    end
   end
 
   # calculates our total earnings
@@ -105,7 +111,7 @@ class Prospector
     loc_count >= 4 && (daily_silver >= 3 || daily_gold >= 2)
   end
 
-  # constructs and displays a summary of our day
+  # constructs a summary of our day
   def self.day_summary(silver, gold, city_name)
     "Found #{sg_clauses silver, gold} in #{city_name}."
   end
@@ -115,8 +121,7 @@ class Prospector
     clauses = []
     clauses << pluralize(gold, 'gold') if gold > 0
     clauses << pluralize(silver, 'silver') if silver > 0
-    return clauses.join(' and ') unless clauses.empty?
-    'no precious metals'
+    clauses.empty? ? 'no precious metals' : clauses.join(' and ')
   end
 
   # pluralizes an amount of a material

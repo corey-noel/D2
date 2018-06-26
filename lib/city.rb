@@ -47,7 +47,7 @@ class City
   # disconnects two cities from each other
   # (calls the other city's disconnect method)
   def disconnect(other)
-    return false unless connected? other
+    return false if other.nil? || !connected?(other)
     @connections.reject! { |city| city == other }
     other.disconnect(self)
     true
@@ -58,11 +58,10 @@ class City
     @connections.map { |city| city }
   end
 
-  # gets a neighboring at random
+  # gets a neighbor at random
   def rand_neighbor
-    len = @connections.length
     return nil if @connections.empty?
-    @connections[rand(len)]
+    @connections[rand(@connections.length)]
   end
 
   # returns a random amount of silver
